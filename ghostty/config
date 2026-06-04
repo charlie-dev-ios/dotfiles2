@@ -1,0 +1,11 @@
+font-family = MesloLGLNerdFont
+font-size = 15.5
+theme = tokyonight_night
+fullscreen = true
+window-padding-x = 0
+window-padding-y = 0
+window-padding-balance = true
+
+cursor-style = bar
+cursor-style-blink = false
+shell-integration-features = no-cursor
