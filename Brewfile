@@ -1,2 +1,7 @@
 brew "git"
 brew "mise"
+brew "starship"
+brew "ghq"
+brew "yazi"
+brew "bat"
+brew "eza"
