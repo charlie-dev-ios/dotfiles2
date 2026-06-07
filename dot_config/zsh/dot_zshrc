@@ -1,0 +1,59 @@
+# インタラクティブシェルの設定本体
+
+# ---- 履歴 ----
+HISTFILE="${ZDOTDIR}/.zsh_history"
+HISTSIZE=10000          # メモリ上に保持する履歴数
+SAVEHIST=10000          # ファイルに保存する履歴数
+
+setopt SHARE_HISTORY        # 複数のシェル間で履歴を共有
+setopt HIST_IGNORE_ALL_DUPS # 重複したコマンドは古い方を削除
+setopt HIST_IGNORE_SPACE    # 空白で始まるコマンドは履歴に残さない
+setopt HIST_REDUCE_BLANKS   # 余分な空白を削除して記録
+setopt EXTENDED_HISTORY     # 実行時刻も記録
+
+# ---- ディレクトリ移動 ----
+setopt AUTO_CD          # ディレクトリ名だけで cd
+setopt AUTO_PUSHD       # cd 時に自動で pushd
+setopt PUSHD_IGNORE_DUPS # 重複したディレクトリを履歴に積まない
+
+# ---- 補完 ----
+setopt NO_BEEP          # 補完候補がないときにビープを鳴らさない
+setopt INTERACTIVE_COMMENTS # コマンドラインでも # コメントを許可
+
+# 補完キャッシュを XDG ディレクトリに置く
+autoload -Uz compinit
+_zcompdump="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompdump"
+mkdir -p "${_zcompdump:h}"
+compinit -d "$_zcompdump"
+
+# 補完候補の選択をカーソルで行えるようにする
+zstyle ':completion:*' menu select
+# 大文字小文字を区別しない補完
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+
+# ---- キーバインド ----
+bindkey -e              # Emacs 風キーバインド
+
+# ---- エイリアス (導入済みツールに置き換え) ----
+if (( $+commands[eza] )); then
+  alias ls='eza --icons --group-directories-first'
+  alias ll='eza -l --icons --group-directories-first'
+  alias la='eza -la --icons --group-directories-first'
+  alias tree='eza --tree --icons'
+fi
+if (( $+commands[bat] )); then
+  alias cat='bat'
+fi
+
+# ---- プロンプト / ツール連携 ----
+# starship: プロンプト
+if (( $+commands[starship] )); then
+  eval "$(starship init zsh)"
+fi
+# mise: ランタイムバージョン管理
+if (( $+commands[mise] )); then
+  eval "$(mise activate zsh)"
+fi
+
+# ---- ローカル / 秘匿設定の読み込み (リポジトリ管理外) ----
+[[ -f "${ZDOTDIR}/.zshrc.local" ]] && source "${ZDOTDIR}/.zshrc.local"

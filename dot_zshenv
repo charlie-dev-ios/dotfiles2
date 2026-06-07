@@ -1,0 +1,3 @@
+# zsh の設定を ~/.config/zsh/ に集約する (HOME を汚さない)
+# このファイルは全 zsh 起動時に読まれるため、内容は最小限に保つ
+export ZDOTDIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
