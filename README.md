@@ -20,10 +20,7 @@ dot_config/
 
 ### 1. 前提ツール
 
-```sh
-# Homebrew (Command Line Tools も同時に導入される)
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-```
+[Homebrew](https://brew.sh/) を公式サイトの手順に従ってインストールしてください（Command Line Tools も同時に導入されます）。
 
 ### 2. chezmoi で適用
 
@@ -40,13 +37,3 @@ sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply charlie-dev-ios/dotfiles2
 ```sh
 brew bundle --file=~/.local/share/chezmoi/Brewfile
 ```
-
-## 含まれる設定
-
-- **ghostty** — ターミナル。MesloLG Nerd Font + Tokyo Night テーマ
-- **starship** — プロンプト。Tokyo Night 配色
-- **mise** — ランタイムバージョン管理
-- **ghq** — リポジトリ管理
-- **yazi** — ターミナルファイルマネージャ
-- **bat** — `cat` の高機能版
-- **eza** — `ls` の高機能版
