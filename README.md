@@ -5,7 +5,7 @@ M1 Mac 用の dotfiles。[chezmoi](https://www.chezmoi.io/) で管理してい�
 ## 構成
 
 ```
-Brewfile                              # Homebrew パッケージ (git, mise)
+Brewfile                              # Homebrew パッケージ (git, mise, starship, ghq, yazi, bat, eza)
 .chezmoiignore                        # home へ展開しないファイル (Brewfile, README)
 dot_config/
 ├── ghostty/
@@ -46,3 +46,7 @@ brew bundle --file=~/.local/share/chezmoi/Brewfile
 - **ghostty** — ターミナル。MesloLG Nerd Font + Tokyo Night テーマ
 - **starship** — プロンプト。Tokyo Night 配色
 - **mise** — ランタイムバージョン管理
+- **ghq** — リポジトリ管理
+- **yazi** — ターミナルファイルマネージャ
+- **bat** — `cat` の高機能版
+- **eza** — `ls` の高機能版
