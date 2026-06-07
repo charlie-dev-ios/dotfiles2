@@ -20,10 +20,7 @@ dot_config/
 
 ### 1. 前提ツール
 
-```sh
-# Homebrew (Command Line Tools も同時に導入される)
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-```
+[Homebrew](https://brew.sh/) を公式サイトの手順に従ってインストールしてください（Command Line Tools も同時に導入されます）。
 
 ### 2. chezmoi で適用
 
