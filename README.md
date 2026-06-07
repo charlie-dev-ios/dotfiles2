@@ -37,9 +37,3 @@ sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply charlie-dev-ios/dotfiles2
 ```sh
 brew bundle --file=~/.local/share/chezmoi/Brewfile
 ```
-
-## 含まれる設定
-
-- **ghostty** — ターミナル。MesloLG Nerd Font + Tokyo Night テーマ
-- **starship** — プロンプト。Tokyo Night 配色
-- **mise** — ランタイムバージョン管理
