@@ -5,7 +5,7 @@ M1 Mac 用の dotfiles。[chezmoi](https://www.chezmoi.io/) で管理してい�
 ## 構成
 
 ```
-Brewfile                              # Homebrew パッケージ (git, mise, starship, ghq, yazi, bat, eza)
+Brewfile                              # Homebrew パッケージ
 .chezmoiignore                        # home へ展開しないファイル (Brewfile, README)
 dot_config/
 ├── ghostty/
