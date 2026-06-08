@@ -36,13 +36,32 @@ bindkey -e              # Emacs 風キーバインド
 
 # ---- エイリアス (導入済みツールに置き換え) ----
 if (( $+commands[eza] )); then
+  export EZA_CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/eza"
   alias ls='eza --icons --group-directories-first'
-  alias ll='eza -l --icons --group-directories-first'
   alias la='eza -la --icons --group-directories-first'
   alias tree='eza --tree --icons'
+  alias ll="eza \
+      --long \
+      --color=always \
+      --color-scale=all \
+      --color-scale-mode=gradient \
+      --icons \
+      --hyperlink \
+      --all \
+      --ignore-glob=.git \
+      --header \
+      --time=modified \
+      --git \
+      --time-style='+%Y/%m/%d %H:%M' \
+      --octal-permissions \
+      --no-user"
 fi
 if (( $+commands[bat] )); then
   alias cat='bat'
+fi
+# ghq + fzf でクローン済みリポジトリ間を移動
+if (( $+commands[ghq] )) && (( $+commands[fzf] )); then
+  alias repo='cd "$(ghq list --full-path | fzf)"'
 fi
 
 # ---- プロンプト / ツール連携 ----
