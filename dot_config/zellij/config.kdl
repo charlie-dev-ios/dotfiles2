@@ -1,0 +1,29 @@
+// zellij 設定 (KDL 形式) — ~/.config/zellij/config.kdl に展開される
+
+// Ghostty の tokyonight_night テーマと見た目を揃える
+theme "tokyo-night"
+
+// ペインはログインシェル (zsh) で起動する
+default_shell "zsh"
+
+// コピー内容を macOS のクリップボードへ連携する (Apple Silicon Mac 前提)
+copy_command "pbcopy"
+// 選択しただけでコピーせず、明示的にコピーしたときだけ反映する
+copy_on_select false
+
+// 起動時の TIPS 表示を抑制する
+show_startup_tips false
+// 終了時にセッション内容を保存しない (毎回クリーンな状態で始める)
+session_serialization false
+
+ui {
+    pane_frames {
+        // フレームの角を丸めて Ghostty / starship の雰囲気に合わせる
+        rounded_corners true
+        // ペインが 1 つのときはセッション名のフレームを隠す
+        hide_session_name false
+    }
+}
+
+// スクロールバックを開く際のエディタ (EDITOR/VISUAL 未設定時のフォールバック)
+// scrollback_editor "nvim"

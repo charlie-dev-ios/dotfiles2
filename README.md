@@ -17,6 +17,8 @@ dot_config/
 │   └── themes/tokyonight_night       → ~/.config/ghostty/themes/tokyonight_night
 ├── eza/
 │   └── theme.yml                     → ~/.config/eza/theme.yml (eza のカラーテーマ)
+├── zellij/
+│   └── config.kdl                    → ~/.config/zellij/config.kdl (ターミナルマルチプレクサ)
 └── starship.toml                     → ~/.config/starship.toml
 ```
 
