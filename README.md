@@ -17,6 +17,13 @@ dot_config/
 │   └── themes/tokyonight_night       → ~/.config/ghostty/themes/tokyonight_night
 ├── eza/
 │   └── theme.yml                     → ~/.config/eza/theme.yml (eza のカラーテーマ)
+├── mise/
+│   └── config.toml                   → ~/.config/mise/config.toml (mise で管理するツール)
+├── nvim/                             → ~/.config/nvim/ (Neovim の設定)
+│   ├── init.lua                      # エントリポイント
+│   └── lua/
+│       ├── config/                   # options / keymaps / lazy (起動設定)
+│       └── plugins/                  # プラグインごとの設定 (lazy.nvim が自動読込)
 └── starship.toml                     → ~/.config/starship.toml
 ```
 
@@ -46,4 +53,21 @@ sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply charlie-dev-ios/dotfiles2
 
 ```sh
 brew bundle --file=~/.local/share/chezmoi/Brewfile
+```
+
+### 4. mise でツールを導入
+
+Neovim などは Homebrew ではなく [mise](https://mise.jdx.dev/) で管理しています。
+`~/.config/mise/config.toml` に書かれたツールを一括インストールします。
+
+```sh
+mise install
+```
+
+Neovim 初回起動時に [lazy.nvim](https://lazy.folke.io/) が自動でインストールされ、
+プラグインも自動で取得されます。アイコンの表示には Nerd Font が必要です
+（ghostty のフォント設定に合わせてください）。
+
+```sh
+nvim
 ```

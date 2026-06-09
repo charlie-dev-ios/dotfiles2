@@ -5,3 +5,7 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # ユーザーローカルの実行ファイル
 export PATH="$HOME/.local/bin:$PATH"
+
+# 既定のエディタ (mise で導入した neovim)
+export EDITOR="nvim"
+export VISUAL="nvim"
