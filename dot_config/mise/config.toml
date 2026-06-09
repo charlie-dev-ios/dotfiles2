@@ -6,4 +6,5 @@
 [tools]
 # Neovim 本体。Homebrew ではなく mise で入れることで
 # バージョン固定・切り替えを容易にする。
-neovim = "latest"
+# 更新するときは値を上げて `mise install` を実行する。
+neovim = "0.12.2"
