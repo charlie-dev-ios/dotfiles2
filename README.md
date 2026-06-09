@@ -7,12 +7,20 @@ M1 Mac 用の dotfiles。[chezmoi](https://www.chezmoi.io/) で管理してい�
 ```
 Brewfile                              # Homebrew パッケージ
 .chezmoiignore                        # home へ展開しないファイル (Brewfile, README)
+dot_zshenv                            → ~/.zshenv (ZDOTDIR を設定するだけ)
 dot_config/
+├── zsh/
+│   ├── dot_zprofile                  → ~/.config/zsh/.zprofile (PATH 等・ログイン時)
+│   └── dot_zshrc                     → ~/.config/zsh/.zshrc (本体・対話シェル)
 ├── ghostty/
 │   ├── config                        → ~/.config/ghostty/config
 │   └── themes/tokyonight_night       → ~/.config/ghostty/themes/tokyonight_night
 └── starship.toml                     → ~/.config/starship.toml
 ```
+
+zsh の設定は `~/.zshenv` で `ZDOTDIR=~/.config/zsh` を指定し、本体を
+`~/.config/zsh/` に集約しています（ホームディレクトリを汚さないため）。
+`~/.config/zsh/.zshrc.local` を置くと、リポジトリ管理外のローカル設定を読み込めます。
 
 `dot_` プレフィックスは chezmoi の命名規則で、`~/.` に展開されます。
 

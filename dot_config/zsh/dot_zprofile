@@ -1,0 +1,7 @@
+# ログインシェルで一度だけ読まれる (PATH などの環境変数を設定)
+
+# Homebrew (Apple Silicon)
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# ユーザーローカルの実行ファイル
+export PATH="$HOME/.local/bin:$PATH"
