@@ -10,7 +10,6 @@ opt.signcolumn = "yes"     -- サイン列を常に表示して幅のガタつ�
 opt.termguicolors = true   -- 24bit カラーを有効化 (テーマの発色のため必須)
 opt.wrap = false           -- 長い行を折り返さない
 opt.scrolloff = 8          -- カーソル上下に最低 8 行残してスクロール
-opt.signcolumn = "yes"
 
 -- ---- インデント ----
 opt.expandtab = true       -- Tab をスペースに展開
