@@ -65,8 +65,8 @@ mise install
 ```
 
 Neovim 初回起動時に [lazy.nvim](https://lazy.folke.io/) が自動でインストールされ、
-プラグインも自動で取得されます。アイコンの表示には Nerd Font が必要です
-（ghostty のフォント設定に合わせてください）。
+プラグインも自動で取得されます。アイコン表示用の Nerd Font (Meslo) は
+手順 3 の `brew bundle` で導入されます。
 
 ```sh
 nvim
