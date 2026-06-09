@@ -15,6 +15,8 @@ dot_config/
 ├── ghostty/
 │   ├── config                        → ~/.config/ghostty/config
 │   └── themes/tokyonight_night       → ~/.config/ghostty/themes/tokyonight_night
+├── eza/
+│   └── theme.yml                     → ~/.config/eza/theme.yml (eza のカラーテーマ)
 └── starship.toml                     → ~/.config/starship.toml
 ```
 
