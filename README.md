@@ -12,8 +12,7 @@ dot_config/
 ├── zsh/
 │   ├── dot_zprofile                  → ~/.config/zsh/.zprofile (PATH 等・ログイン時)
 │   ├── dot_zshrc                     → ~/.config/zsh/.zshrc (本体・対話シェル)
-│   ├── create_dot_zshrc.work         → ~/.config/zsh/.zshrc.work (会社用・端末固有/管理外)
-│   └── create_dot_zshrc.personal     → ~/.config/zsh/.zshrc.personal (私用・端末固有/管理外)
+│   └── create_dot_zshrc.local        → ~/.config/zsh/.zshrc.local (端末固有/管理外・雛形のみ)
 ├── ghostty/
 │   ├── config                        → ~/.config/ghostty/config
 │   └── themes/tokyonight_night       → ~/.config/ghostty/themes/tokyonight_night
@@ -26,30 +25,22 @@ dot_config/
 
 zsh の設定は `~/.zshenv` で `ZDOTDIR=~/.config/zsh` を指定し、本体を
 `~/.config/zsh/` に集約しています（ホームディレクトリを汚さないため）。
-`~/.config/zsh/.zshrc.local` を置くと、リポジトリ管理外のローカル設定を読み込めます。
 
 `dot_` プレフィックスは chezmoi の命名規則で、`~/.` に展開されます。
 
-### 端末固有の設定 (会社用 / 私用)
+### 端末固有 / 秘匿の設定 (`.zshrc.local`)
 
-会社用と私用で設定を分けたい場合、`.zshrc` が以下を自動で読み込みます。
+コミットしたくない端末固有の設定（会社用 PC の社内プロキシ・業務用エイリアス等）は
+`~/.config/zsh/.zshrc.local` に書きます。`.zshrc` が起動時に自動で読み込みます。
 
-| ファイル | 用途 |
-| --- | --- |
-| `~/.config/zsh/.zshrc.local` | 全端末共通のローカル / 秘匿設定 |
-| `~/.config/zsh/.zshrc.work` | 会社用の端末でのみ書く設定 |
-| `~/.config/zsh/.zshrc.personal` | 私用の端末でのみ書く設定 |
+このファイルはリポジトリでは `create_` 属性で「雛形だけ」管理しています。
 
-`.zshrc.work` / `.zshrc.personal` はリポジトリでは `create_` 属性で管理しています。
-
-- 端末に無ければ `chezmoi apply` で**枠だけ**作成される
+- 端末に無ければ `chezmoi apply` で**雛形が作成**される
 - 既に存在する場合は**中身を一切上書きしない**（書いた設定が消えない）
-- **中身はリポジトリに同期されない**ため、社内固有の設定（プロキシ・社内 URL 等）を
-  入れても push されない
+- **中身はリポジトリに同期されない**ため、社内固有の設定を入れても push されない
 
-各端末では該当するファイルにだけ中身を書きます（もう一方は空のまま読み込まれても無害）。
-なお `*.local` は `.gitignore` 対象、`.zshrc.work` / `.zshrc.personal` の中身は
-`create_` のため、いずれも誤ってコミットされることはありません。
+`*.local` は `.gitignore` 対象（雛形 `create_dot_zshrc.local` のみ例外で追跡）なので、
+実ファイルの中身が誤ってコミットされることはありません。
 
 ## セットアップ
 

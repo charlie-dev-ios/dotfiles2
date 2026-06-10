@@ -74,16 +74,8 @@ if (( $+commands[mise] )); then
   eval "$(mise activate zsh)"
 fi
 
-# ---- ローカル / 端末固有設定の読み込み (リポジトリ管理外) ----
-# 全端末共通のローカル / 秘匿設定
+# ---- ローカル / 秘匿設定の読み込み (リポジトリ管理外) ----
+# 端末固有・秘匿の設定はここに書く (会社用 PC ではここに業務用設定を入れる)。
+# .zshrc.local は chezmoi の create_ 属性で「無ければ作成・あれば中身を変更しない」
+# 管理のため、端末ごとに独立し、中身はリポジトリに同期されない。
 [[ -f "${ZDOTDIR}/.zshrc.local" ]] && source "${ZDOTDIR}/.zshrc.local"
-
-# 端末プロファイルごとの設定 (会社用 / 私用)
-#   会社用の端末では .zshrc.work に、私用の端末では .zshrc.personal に書く。
-#   これらは chezmoi の create_ 属性で「無ければ作成・あれば中身を変更しない」
-#   管理のため、端末ごとに独立し、中身はリポジトリに同期されない。
-#   各端末では該当するファイルにだけ中身を書けばよい (もう一方は空のまま no-op)。
-for _zsh_profile in work personal; do
-  [[ -f "${ZDOTDIR}/.zshrc.${_zsh_profile}" ]] && source "${ZDOTDIR}/.zshrc.${_zsh_profile}"
-done
-unset _zsh_profile
