@@ -18,8 +18,8 @@ on   = "q"
 run  = "quit --no-cwd-file"
 desc = "cd せずに終了する"
 
-# o: カーソル上のファイルを neovim で開く (複数選択を開きたいときは %h を %s に)。
+# e: カーソル上のファイルを neovim で開く (複数選択を開きたいときは %h を %s に)。
 [[mgr.prepend_keymap]]
-on   = "o"
+on   = "e"
 run  = "shell 'nvim %h' --block"
 desc = "neovim で開く"

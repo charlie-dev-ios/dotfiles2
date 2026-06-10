@@ -70,7 +70,7 @@ if (( $+commands[ghq] )) && (( $+commands[fzf] )); then
 fi
 # yazi: ファイラ。`yazi` ではなく `y` で起動するとシェル連携が有効になり、
 # キーマップ (dot_config/yazi/keymap.toml) に従って Enter で今いるディレクトリ
-# へ cd して終了、q は cd せず終了、o は neovim で開く、という挙動になる。
+# へ cd して終了、q は cd せず終了、e は neovim で開く、という挙動になる。
 if (( $+commands[yazi] )); then
   function y() {
     local tmp cwd
