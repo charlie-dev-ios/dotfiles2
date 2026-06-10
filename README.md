@@ -86,6 +86,9 @@ sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply charlie-dev-ios/dotfiles2
 brew bundle --file=~/.local/share/chezmoi/Brewfile
 ```
 
+chezmoi 自体も Brewfile に含めているため、ブートストラップ後はこの手順で
+Homebrew 管理下に置かれます（更新方法は後述の「更新」を参照）。
+
 ### 4. mise でツールを導入
 
 Neovim などは Homebrew ではなく [mise](https://mise.jdx.dev/) で管理しています。
@@ -101,4 +104,40 @@ Neovim 初回起動時に [lazy.nvim](https://lazy.folke.io/) が自動でイン
 
 ```sh
 nvim
+```
+
+## 更新
+
+### dotfiles の更新
+
+リポジトリの最新を取り込んでホームに反映します。
+
+```sh
+chezmoi update
+```
+
+`chezmoi update` は `git pull` で最新を取得し、そのまま `chezmoi apply` まで
+実行します。差分だけ確認したい場合は次のようにします。
+
+```sh
+chezmoi git pull          # ソースだけ更新
+chezmoi diff              # 反映前に差分を確認
+chezmoi apply             # 問題なければ反映
+```
+
+### Homebrew パッケージの更新
+
+chezmoi 自体も Brewfile に含まれているため、まとめて更新できます。
+
+```sh
+brew update                                            # Homebrew 本体の更新
+brew bundle --file=~/.local/share/chezmoi/Brewfile     # Brewfile の追加分を導入
+brew upgrade                                            # 導入済みパッケージを更新
+```
+
+### mise で管理するツールの更新
+
+```sh
+mise upgrade              # config.toml の範囲で更新
+mise install              # 追加したツールを導入
 ```
