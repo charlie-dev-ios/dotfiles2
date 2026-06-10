@@ -5,6 +5,9 @@ export ZDOTDIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
 # mise で管理する言語/ツールを Homebrew で誤ってインストールしないようにする
 export HOMEBREW_FORBIDDEN_FORMULA="node python python3 pip npm pnpm yarn"
 
+# npm の設定を ~/.config/npm/ に置く (HOME を汚さない)
+export NPM_CONFIG_USERCONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/npm/npmrc"
+
 # 非ログイン・非対話シェルでも PATH 等が定義されるよう .zprofile を読み込む
 if [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "${ZDOTDIR}/.zprofile" ]]; then
   source "${ZDOTDIR}/.zprofile"

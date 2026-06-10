@@ -75,4 +75,7 @@ if (( $+commands[mise] )); then
 fi
 
 # ---- ローカル / 秘匿設定の読み込み (リポジトリ管理外) ----
+# 端末固有・秘匿の設定はここに書く (会社用 PC ではここに業務用設定を入れる)。
+# .zshrc.local は chezmoi の create_ 属性で「無ければ作成・あれば中身を変更しない」
+# 管理のため、端末ごとに独立し、中身はリポジトリに同期されない。
 [[ -f "${ZDOTDIR}/.zshrc.local" ]] && source "${ZDOTDIR}/.zshrc.local"

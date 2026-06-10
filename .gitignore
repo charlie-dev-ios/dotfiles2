@@ -4,6 +4,8 @@
 # Local / secret overrides
 *.local
 .env
+# ただし .zshrc.local の「雛形」はリポジトリで管理する (中身は create_ で同期されない)
+!dot_config/zsh/create_dot_zshrc.local
 
 # Editor
 *.swp
