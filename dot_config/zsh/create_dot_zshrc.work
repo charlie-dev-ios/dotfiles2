@@ -1,0 +1,14 @@
+# 会社用の端末でのみ書く zsh 設定 (.zshrc から自動で読み込まれる)
+#
+# このファイルは chezmoi の create_ 属性で管理されている。
+#   - 端末上に無ければ chezmoi apply で作成される
+#   - 既に存在する場合は中身を一切上書きしない
+#   - 中身はリポジトリに同期されない (各端末でローカルに編集する)
+# そのため社内固有の設定 (プロキシ・社内ミラー・業務用エイリアス等) を
+# ここに安心して書いてよい。
+#
+# 例:
+#   export HTTP_PROXY="http://proxy.example.co.jp:8080"
+#   export HTTPS_PROXY="$HTTP_PROXY"
+#   export NO_PROXY="localhost,127.0.0.1,.example.co.jp"
+#   alias gw='./gradlew'
