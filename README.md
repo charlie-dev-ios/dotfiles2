@@ -86,6 +86,9 @@ sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply charlie-dev-ios/dotfiles2
 brew bundle --file=~/.local/share/chezmoi/Brewfile
 ```
 
+chezmoi 自体も Brewfile に含めているため、ブートストラップ後はこの手順で
+Homebrew 管理下に置かれ、以降は `brew upgrade` で更新できます。
+
 ### 4. mise でツールを導入
 
 Neovim などは Homebrew ではなく [mise](https://mise.jdx.dev/) で管理しています。

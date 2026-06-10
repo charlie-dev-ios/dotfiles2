@@ -1,4 +1,5 @@
 brew "git"
+brew "chezmoi"
 brew "mise"
 brew "starship"
 brew "ghq"
