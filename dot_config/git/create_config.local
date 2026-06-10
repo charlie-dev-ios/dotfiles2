@@ -1,0 +1,18 @@
+# 端末固有 / 秘匿の Git 設定 (~/.config/git/config.local)
+#
+# このファイルは ~/.config/git/config の末尾から include される。
+# create_ 属性で「雛形だけ」管理しているため:
+#   - 端末に無ければ chezmoi apply で雛形が作成される
+#   - 既に存在する場合は中身を一切上書きしない (書いた設定が消えない)
+#   - 中身はリポジトリに同期されない (プロキシやトークンを入れても push されない)
+#
+# 例) 会社用 Mac の社内プロキシ
+# [http]
+# 	proxy = http://proxy.example.com:8080
+# [https]
+# 	proxy = http://proxy.example.com:8080
+#
+# 例) 端末ごとに異なる Git の identity
+# [user]
+# 	name = Your Name
+# 	email = you@example.com

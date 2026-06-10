@@ -13,6 +13,10 @@ dot_config/
 │   ├── dot_zprofile                  → ~/.config/zsh/.zprofile (PATH 等・ログイン時)
 │   ├── dot_zshrc                     → ~/.config/zsh/.zshrc (本体・対話シェル)
 │   └── create_dot_zshrc.local        → ~/.config/zsh/.zshrc.local (端末固有/管理外・雛形のみ)
+├── git/
+│   ├── config                        → ~/.config/git/config (全端末共通の Git 設定)
+│   ├── ignore                        → ~/.config/git/ignore (グローバル無視・.DS_Store 等)
+│   └── create_config.local           → ~/.config/git/config.local (端末固有/管理外・雛形のみ)
 ├── npm/
 │   └── create_npmrc                  → ~/.config/npm/npmrc (端末固有/管理外・雛形のみ)
 ├── ghostty/
@@ -63,6 +67,34 @@ zsh の設定は `~/.zshenv` で `ZDOTDIR=~/.config/zsh` を指定し、本体�
 - 端末に無ければ `chezmoi apply` で**雛形が作成**される
 - 既に存在する場合は**中身を一切上書きしない**
 - **中身はリポジトリに同期されない**ため、トークン等を入れても push されない
+
+### Git の共通設定と端末固有設定 (`git/config` / `config.local`)
+
+Git は XDG 既定で `~/.config/git/config` を読み込むため、`~/.gitconfig` を
+使わずここに集約しています（HOME を汚さないため）。
+
+- `~/.config/git/config` … **どの端末でも絶対に共通**の設定（コミット対象）。
+  - `.DS_Store` 等の無視は `~/.config/git/ignore`（グローバル無視ファイル）で行う
+  - ファイル名/ディレクトリ名の大文字小文字を厳密に区別（`core.ignorecase = false`）
+- `~/.config/git/config.local` … 会社用 Mac の社内プロキシなど、**端末固有 / 秘匿**の設定。
+
+`config` は末尾で `config.local` を `include` しています。include は後勝ちのため、
+`config.local` 側で共通設定を**安全に上書き**できます。
+
+`config.local` は `.zshrc.local` と同じく `create_` 属性で「雛形だけ」管理しており、
+
+- 端末に無ければ `chezmoi apply` で**雛形が作成**される
+- 既に存在する場合は**中身を一切上書きしない**（プロキシ設定が消えない）
+- **中身はリポジトリに同期されない**ため、プロキシやトークンを入れても push されない
+
+会社用 Mac では `~/.config/git/config.local` に次のように書きます。
+
+```ini
+[http]
+	proxy = http://proxy.example.com:8080
+[https]
+	proxy = http://proxy.example.com:8080
+```
 
 ## セットアップ
 
