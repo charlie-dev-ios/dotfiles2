@@ -1,0 +1,11 @@
+; 端末固有 / 秘匿の npm 設定 (~/.config/npm/npmrc)
+;
+; このファイルは chezmoi の create_ 属性で管理されている。
+;   - 端末上に無ければ chezmoi apply で作成される
+;   - 既に存在する場合は中身を一切上書きしない
+;   - 中身はリポジトリに同期されない (各端末でローカルに編集する)
+; 社内レジストリや認証トークンなど、コミットしたくない設定をここに書く。
+;
+; 例 (社内スコープレジストリ + 認証トークン):
+;   @mycompany:registry=https://npm.pkg.example.co.jp/
+;   //npm.pkg.example.co.jp/:_authToken=${NPM_TOKEN}
