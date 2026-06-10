@@ -78,6 +78,10 @@ fi
 if (( $+commands[mise] )); then
   eval "$(mise activate zsh)"
 fi
+# zoxide: 賢いディレクトリ移動 (z / zi で履歴ジャンプ・fzf 連携)
+if (( $+commands[zoxide] )); then
+  eval "$(zoxide init zsh)"
+fi
 
 # ---- ローカル / 秘匿設定の読み込み (リポジトリ管理外) ----
 # 端末固有・秘匿の設定はここに書く (会社用 PC ではここに業務用設定を入れる)。
