@@ -68,6 +68,20 @@ fi
 if (( $+commands[ghq] )) && (( $+commands[fzf] )); then
   alias repo='cd "$(ghq list --full-path | fzf)"'
 fi
+# yazi: ファイラ。`yazi` ではなく `y` で起動すると、終了時に yazi で最後に
+# いたディレクトリへシェルが cd する。ファイル上で Enter すれば従来どおり
+# nvim で開けるので「nvim で開く」操作は残したまま、cd 連携だけ追加できる。
+if (( $+commands[yazi] )); then
+  function y() {
+    local tmp cwd
+    tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+    yazi "$@" --cwd-file="$tmp"
+    if cwd="$(command cat -- "$tmp")" && [[ -n "$cwd" && "$cwd" != "$PWD" ]]; then
+      builtin cd -- "$cwd"
+    fi
+    rm -f -- "$tmp"
+  }
+fi
 
 # ---- プロンプト / ツール連携 ----
 # starship: プロンプト
