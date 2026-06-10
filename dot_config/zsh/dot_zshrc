@@ -59,6 +59,11 @@ fi
 if (( $+commands[bat] )); then
   alias cat='bat'
 fi
+# neovim を vi/vim として使う
+if (( $+commands[nvim] )); then
+  alias vi='nvim'
+  alias vim='nvim'
+fi
 # ghq + fzf でクローン済みリポジトリ間を移動
 if (( $+commands[ghq] )) && (( $+commands[fzf] )); then
   alias repo='cd "$(ghq list --full-path | fzf)"'

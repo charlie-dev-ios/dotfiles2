@@ -1,0 +1,10 @@
+# mise でグローバルに管理するツール (~/.config/mise/config.toml)
+# 言語ランタイムやエディタのバージョンをここで一元管理する。
+#   mise install        # この設定に書かれたツールを一括インストール
+#   mise use -g <tool>  # ツールを追記しつつインストール
+
+[tools]
+# Neovim 本体。Homebrew ではなく mise で入れることで
+# バージョン固定・切り替えを容易にする。
+# 更新するときは値を上げて `mise install` を実行する。
+neovim = "0.12.2"
