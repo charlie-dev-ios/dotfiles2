@@ -8,6 +8,7 @@ M1 Mac 用の dotfiles。[chezmoi](https://www.chezmoi.io/) で管理してい�
 Brewfile                              # Homebrew パッケージ
 .chezmoiignore                        # home へ展開しないファイル (Brewfile, README)
 run_onchange_after_install-packages.sh.tmpl  # Brewfile 変更時に brew bundle で差分インストール
+run_onchange_after_configure-macos-defaults.sh  # macOS のシステム設定を defaults で自動適用
 dot_zshenv                            → ~/.zshenv (ZDOTDIR / npm userconfig を設定)
 dot_config/
 ├── zsh/
@@ -190,3 +191,23 @@ brew upgrade                                            # 導入済みパッケ�
 mise upgrade              # config.toml の範囲で更新
 mise install              # 追加したツールを導入
 ```
+
+## macOS のシステム設定（自動）
+
+`chezmoi apply` / `chezmoi update` の中で、macOS のシステム設定を
+`defaults` コマンドで自動適用します。`run_onchange_after_configure-macos-defaults.sh`
+が担当しており、
+
+- `run_onchange_` … スクリプトの内容が変わったときだけ実行される（毎回は走らない）
+- macOS 以外の端末（CI / Linux）では `uname` を見て何もせずスキップする
+
+現在、次の設定を適用しています。
+
+- **Finder で拡張子を常に表示**（`AppleShowAllExtensions`）
+- **マウスの軌跡の速さ（トラッキング速度）を最大**（`com.apple.mouse.scaling = 3.0`、
+  システム設定のスライダー右端に相当）
+- **マウスのスクロール速度を最大**（`com.apple.scrollwheel.scaling = 3.0`、同上）
+
+設定を増やしたいときはこのスクリプトに `defaults write ...` を追記して
+`chezmoi update` するだけで反映されます。マウス感度・スクロール速度は
+ログインし直すと完全に反映されます。
