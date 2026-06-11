@@ -207,6 +207,8 @@ mise install              # 追加したツールを導入
 - **マウスの軌跡の速さ（トラッキング速度）を最大**（`com.apple.mouse.scaling = 3.0`、
   システム設定のスライダー右端に相当）
 - **マウスのスクロール速度を最大**（`com.apple.scrollwheel.scaling = 3.0`、同上）
+- **ホットコーナーを 4 隅すべて無効化**（`com.apple.dock wvous-*-corner = 1`、
+  画面の隅での Mission Control 等の誤発動を防止）
 
 設定を増やしたいときはこのスクリプトに `defaults write ...` を追記して
 `chezmoi update` するだけで反映されます。マウス感度・スクロール速度は

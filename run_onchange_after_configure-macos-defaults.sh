@@ -30,9 +30,22 @@ defaults write NSGlobalDomain com.apple.mouse.scaling -float 3.0
 # システム設定の「マウス > スクロールの速さ」スライダー右端が 3.0 に相当。
 defaults write NSGlobalDomain com.apple.scrollwheel.scaling -float 3.0
 
+# --- ホットコーナー -------------------------------------------------------
+# 4 隅すべてのホットコーナーを無効化する（値 1 = 動作なし、modifier 0 = 修飾なし）。
+# 画面の隅にカーソルを動かしたときに Mission Control 等が誤発動するのを防ぐ。
+defaults write com.apple.dock wvous-tl-corner -int 1   # 左上
+defaults write com.apple.dock wvous-tl-modifier -int 0
+defaults write com.apple.dock wvous-tr-corner -int 1   # 右上
+defaults write com.apple.dock wvous-tr-modifier -int 0
+defaults write com.apple.dock wvous-bl-corner -int 1   # 左下
+defaults write com.apple.dock wvous-bl-modifier -int 0
+defaults write com.apple.dock wvous-br-corner -int 1   # 右下
+defaults write com.apple.dock wvous-br-modifier -int 0
+
 # --- 反映 -----------------------------------------------------------------
-# Finder の表示変更を即座に反映するため Finder を再起動する。
+# Finder / Dock の変更を即座に反映するため再起動する。
 killall Finder 2>/dev/null || true
+killall Dock 2>/dev/null || true
 
 echo "macOS のシステム設定を適用しました。"
 echo "マウス感度・スクロール速度はログインし直すと完全に反映されます。"
