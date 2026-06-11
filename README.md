@@ -7,6 +7,7 @@ M1 Mac 用の dotfiles。[chezmoi](https://www.chezmoi.io/) で管理してい�
 ```
 Brewfile                              # Homebrew パッケージ
 .chezmoiignore                        # home へ展開しないファイル (Brewfile, README)
+run_onchange_after_install-packages.sh.tmpl  # Brewfile 変更時に brew bundle で差分インストール
 dot_zshenv                            → ~/.zshenv (ZDOTDIR / npm userconfig を設定)
 dot_config/
 ├── zsh/
@@ -157,13 +158,29 @@ chezmoi diff              # 反映前に差分を確認
 chezmoi apply             # 問題なければ反映
 ```
 
-### Homebrew パッケージの更新
+### Homebrew パッケージの差分インストール（自動）
 
-chezmoi 自体も Brewfile に含まれているため、まとめて更新できます。
+`chezmoi update` / `chezmoi apply` の中で、**Brewfile が変わったときだけ**
+Homebrew パッケージの差分が自動でインストールされます。
+Brewfile に行を足して `chezmoi update` するだけで、増えたパッケージが入ります。
+
+これは `run_onchange_after_install-packages.sh.tmpl` という chezmoi のスクリプトで
+実現しています。
+
+- `run_onchange_` … スクリプト末尾に埋め込んだ Brewfile のハッシュが変わった
+  ときだけ実行される（毎回は走らないので `chezmoi apply` が重くならない）
+- 中身は `brew bundle` … Brewfile のうち**未導入のものだけ**を入れる（差分インストール）。
+  既に入っているパッケージは再インストールされない
+- `brew` が無い端末（CI 等）では何もせずスキップする
+
+### Homebrew パッケージの手動更新
+
+新しいパッケージの導入は上記のとおり `chezmoi update` で自動化されていますが、
+Homebrew 本体や導入済みパッケージの**バージョン更新**は手動で行います。
 
 ```sh
 brew update                                            # Homebrew 本体の更新
-brew bundle --file=~/.local/share/chezmoi/Brewfile     # Brewfile の追加分を導入
+brew bundle --file=~/.local/share/chezmoi/Brewfile     # Brewfile の追加分を導入（差分）
 brew upgrade                                            # 導入済みパッケージを更新
 ```
 
