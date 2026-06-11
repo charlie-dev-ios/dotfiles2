@@ -1,0 +1,26 @@
+#!/bin/sh
+# Brewfile が変わったときだけ自動で差分インストールするスクリプト。
+#
+# chezmoi の run_onchange_ 属性により、このスクリプトは
+# `chezmoi apply` / `chezmoi update` の中で実行される。
+# 末尾の Brewfile ハッシュが前回と変わったときだけ走るため、
+# Brewfile に行を足して `chezmoi update` するだけで、
+# 増えたパッケージが自動でインストールされる（差分インストール）。
+#
+# after は「他のファイルを展開し終えた後に走らせる」ための順序指定。
+
+set -eu
+
+# Homebrew が未導入の端末（CI など）では何もしない。
+if ! command -v brew >/dev/null 2>&1; then
+	echo "brew が見つからないため Homebrew パッケージの導入をスキップします。"
+	exit 0
+fi
+
+echo "Brewfile が変更されました。Homebrew パッケージの差分を導入します..."
+
+# brew bundle は Brewfile のうち未導入のものだけを入れる（=差分インストール）。
+# 既に入っているパッケージは再インストールされない。
+brew bundle --file="{{ .chezmoi.sourceDir }}/Brewfile"
+
+# Brewfile hash: {{ include "Brewfile" | sha256sum }}
