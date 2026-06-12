@@ -12,3 +12,8 @@
 # 取得に失敗するため (vfox プラグインがプロキシ設定を尊重しない)、GitHub Releases から
 # 直接取得する aqua (aquaproj/aqua-registry の neovim/neovim) を使う。
 "aqua:neovim/neovim" = "0.12.2"
+
+# Node.js。社内プロキシ環境で取得できるよう、neovim と同様 aqua バックエンドを
+# 明示指定する (aquaproj/aqua-registry の nodejs/node)。"22" はメジャー指定で、
+# 22 系の最新を取得する。更新するときは値を上げて `mise install` を実行する。
+"aqua:nodejs/node" = "22"
