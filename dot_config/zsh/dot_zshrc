@@ -68,6 +68,20 @@ fi
 if (( $+commands[ghq] )) && (( $+commands[fzf] )); then
   alias repo='cd "$(ghq list --full-path | fzf)"'
 fi
+# yazi: ファイラ。`yazi` ではなく `y` で起動するとシェル連携が有効になり、
+# キーマップ (dot_config/yazi/keymap.toml) に従って Enter で今いるディレクトリ
+# へ cd して終了、q は cd せず終了、e は neovim で開く、という挙動になる。
+if (( $+commands[yazi] )); then
+  function y() {
+    local tmp cwd
+    tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+    yazi "$@" --cwd-file="$tmp"
+    if cwd="$(command cat -- "$tmp")" && [[ -n "$cwd" && "$cwd" != "$PWD" ]]; then
+      builtin cd -- "$cwd"
+    fi
+    rm -f -- "$tmp"
+  }
+fi
 
 # ---- プロンプト / ツール連携 ----
 # starship: プロンプト
@@ -77,6 +91,10 @@ fi
 # mise: ランタイムバージョン管理
 if (( $+commands[mise] )); then
   eval "$(mise activate zsh)"
+fi
+# zoxide: 賢いディレクトリ移動 (z / zi で履歴ジャンプ・fzf 連携)
+if (( $+commands[zoxide] )); then
+  eval "$(zoxide init zsh)"
 fi
 
 # ---- ローカル / 秘匿設定の読み込み (リポジトリ管理外) ----

@@ -1,0 +1,25 @@
+# yazi のキーマップ。prepend_keymap は既定のキーマップより優先される。
+# 既定値: https://github.com/sxyazi/yazi/blob/shipped/yazi-config/preset/keymap-default.toml
+#
+# このリポジトリでは zsh の `y` 関数 (dot_config/zsh/dot_zshrc) 経由で
+# `--cwd-file` を渡して起動する。`quit` は終了時にカレントディレクトリを
+# その一時ファイルへ書き出し、`y` 関数がそこへ cd する仕組み。
+
+# Enter: 終了して、yazi で今いるディレクトリにシェルを cd する。
+# (ディレクトリへ降りるのは l / →、親へ戻るのは h / ← を使う)
+[[mgr.prepend_keymap]]
+on   = "<Enter>"
+run  = "quit"
+desc = "終了して、今いるディレクトリへ cd する"
+
+# q: cd せずにそのまま終了する (--no-cwd-file で cwd を書き出さない)。
+[[mgr.prepend_keymap]]
+on   = "q"
+run  = "quit --no-cwd-file"
+desc = "cd せずに終了する"
+
+# e: カーソル上のファイルを neovim で開く (複数選択を開きたいときは %h を %s に)。
+[[mgr.prepend_keymap]]
+on   = "e"
+run  = "shell 'nvim %h' --block"
+desc = "neovim で開く"

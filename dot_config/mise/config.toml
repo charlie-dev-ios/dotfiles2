@@ -13,7 +13,8 @@
 # 直接取得する aqua (aquaproj/aqua-registry の neovim/neovim) を使う。
 "aqua:neovim/neovim" = "0.12.2"
 
-# Node.js。社内プロキシ環境で取得できるよう、neovim と同様 aqua バックエンドを
-# 明示指定する (aquaproj/aqua-registry の nodejs/node)。"22" はメジャー指定で、
-# 22 系の最新を取得する。更新するときは値を上げて `mise install` を実行する。
+# Node.js ランタイム。現行 LTS (22 系) を利用する。
+# 社内プロキシ環境で取得できるよう、neovim と同様 aqua バックエンドを明示指定する
+# (aquaproj/aqua-registry の nodejs/node)。メジャーを固定し、22 系の最新を取得する。
+# パッチ更新は `mise upgrade` で取り込む。
 "aqua:nodejs/node" = "22"

@@ -1,0 +1,12 @@
+# 全リポジトリ共通で無視するファイル (~/.config/git/ignore)
+# Git は XDG 既定でこのパスをグローバル除外ファイルとして自動で読み込む。
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+
+# エディタ / 一時ファイル
+*.swp
+*~

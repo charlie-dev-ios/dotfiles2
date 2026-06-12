@@ -1,0 +1,29 @@
+# 全マシン共通の Git 設定 (~/.config/git/config)
+# chezmoi 管理。ここには「どの端末でも絶対に共通」の設定だけを書く。
+# Git は XDG 既定でこのパスを ~/.gitconfig と並んで読み込む (HOME を汚さない)。
+#
+# 端末固有・秘匿の設定 (会社プロキシ, 業務用 user.email 等) は
+# 末尾で include している config.local に書く (リポジトリには同期されない)。
+
+[core]
+	# macOS の APFS/HFS+ は既定で大文字小文字を区別しないが、Git には
+	# ファイル名/ディレクトリ名の大文字小文字を厳密に区別させる。
+	ignorecase = false
+
+[init]
+	# 新規リポジトリの初期ブランチ名
+	defaultBranch = main
+
+[push]
+	# 新規ブランチを push する際に upstream を自動設定する
+	autoSetupRemote = true
+
+[fetch]
+	# fetch 時に消えたリモートブランチの追跡を自動で掃除する
+	prune = true
+
+# 端末固有 / 秘匿の上書き設定を読み込む。
+# ファイルが無ければ Git は黙って無視する。後勝ちなので、ここで
+# 共通設定を安全に上書きできる (会社 Mac のプロキシ等)。
+[include]
+	path = config.local
