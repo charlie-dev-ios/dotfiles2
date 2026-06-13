@@ -102,3 +102,17 @@ fi
 # .zshrc.local は chezmoi の create_ 属性で「無ければ作成・あれば中身を変更しない」
 # 管理のため、端末ごとに独立し、中身はリポジトリに同期されない。
 [[ -f "${ZDOTDIR}/.zshrc.local" ]] && source "${ZDOTDIR}/.zshrc.local"
+
+# ---- GitHub レートリミット対策 ----
+# mise (aqua バックエンド) と Homebrew は GitHub の API/Releases を叩くため、
+# 未認証だと 60 req/時 で頭打ちになり `rate limit exceeded` を踏みやすい。
+# .zshrc.local に `export GITHUB_TOKEN=...` を1つ置けば、ここで各ツール用の
+# 環境変数へ展開して認証付きアクセス (5000 req/時) にする。トークン自体は
+# .zshrc.local (非同期) にだけ書くので、リポジトリには push されない。
+#   - mise     : GITHUB_TOKEN を直接尊重する (追加設定不要)
+#   - Homebrew : HOMEBREW_GITHUB_API_TOKEN を見るので GITHUB_TOKEN から展開する
+# 単にレート上限を上げるだけならトークンに scope は不要 (空 scope で可)。
+# 既に個別に設定済みの場合はそちらを優先する (上書きしない)。
+if [[ -n "${GITHUB_TOKEN:-}" ]]; then
+  export HOMEBREW_GITHUB_API_TOKEN="${HOMEBREW_GITHUB_API_TOKEN:-$GITHUB_TOKEN}"
+fi
