@@ -12,3 +12,12 @@
 #   export HTTP_PROXY="http://proxy.example.co.jp:8080"
 #   export HTTPS_PROXY="$HTTP_PROXY"
 #   alias g='git'
+#
+# GitHub レートリミット対策:
+#   mise (aqua) や Homebrew で `rate limit exceeded` を踏むときは、
+#   ここに Personal Access Token を置くと認証付きアクセス (5000 req/時) になる。
+#   .zshrc が GITHUB_TOKEN を Homebrew 用などに自動展開する。
+#   トークンは単にレート上限を上げるだけなら scope は不要 (空 scope で可)。
+#   発行: https://github.com/settings/tokens
+#   例:
+#     export GITHUB_TOKEN="ghp_xxxxxxxxxxxxxxxxxxxx"

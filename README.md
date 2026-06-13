@@ -57,6 +57,24 @@ zsh の設定は `~/.zshenv` で `ZDOTDIR=~/.config/zsh` を指定し、本体�
 `*.local` は `.gitignore` 対象（雛形 `create_dot_zshrc.local` のみ例外で追跡）なので、
 実ファイルの中身が誤ってコミットされることはありません。
 
+#### GitHub レートリミット対策
+
+mise（aqua バックエンド）や Homebrew は GitHub の API / Releases を叩くため、
+未認証だと **60 req/時** で頭打ちになり、`mise install` / `mise upgrade` /
+`brew bundle` などで `rate limit exceeded` を踏みやすくなります。
+
+`~/.config/zsh/.zshrc.local` に Personal Access Token を1つ置くと、`.zshrc` が
+各ツール用の環境変数へ展開し、認証付きアクセス（**5000 req/時**）になります。
+
+```sh
+export GITHUB_TOKEN="ghp_xxxxxxxxxxxxxxxxxxxx"
+```
+
+- mise は `GITHUB_TOKEN` を直接尊重します（追加設定不要）。
+- Homebrew 用に `HOMEBREW_GITHUB_API_TOKEN` を `GITHUB_TOKEN` から自動展開します。
+- 単にレート上限を上げるだけならトークンに scope は不要です（空 scope で可）。
+- トークンは非同期の `.zshrc.local` にだけ書くので、リポジトリには push されません。
+
 ### 端末固有 / 秘匿の npm 設定 (`npmrc`)
 
 `~/.zshenv` で `NPM_CONFIG_USERCONFIG=~/.config/npm/npmrc` を指定し、npm の
