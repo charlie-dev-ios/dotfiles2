@@ -9,6 +9,7 @@ return {
   keys = {
     -- ファイラ (元 dotfiles の nvim-tree と同じ <Leader>e 系プレフィックス)
     { "<Leader>ee", function() Snacks.explorer() end, desc = "ファイラを開閉" },
+    { "<Leader>ef", function() Snacks.explorer.reveal() end, desc = "ファイラで現在のファイルをreveal" },
 
     -- ファジーファインダ (旧 telescope の <Leader>f 系を踏襲)
     { "<Leader>ff", function() Snacks.picker.files() end,   desc = "ファイル検索" },
