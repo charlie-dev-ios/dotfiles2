@@ -18,3 +18,9 @@
 # (aquaproj/aqua-registry の nodejs/node)。メジャーを固定し、22 系の最新を取得する。
 # パッチ更新は `mise upgrade` で取り込む。
 "aqua:nodejs/node" = "22"
+
+# Lua の LSP サーバ (lua_ls)。Neovim 設定 (Lua) を書く際の補完・診断に使う。
+# mason ではなく mise で管理し、PATH 上の実行ファイルを nvim-lspconfig が利用する。
+# 社内プロキシ環境で取得できるよう aqua バックエンドを明示指定する
+# (aquaproj/aqua-registry の LuaLS/lua-language-server)。
+"aqua:LuaLS/lua-language-server" = "latest"
