@@ -6,6 +6,11 @@
 --   * パーサのインストール … `require("nvim-treesitter").install(...)`
 --   * ハイライトの有効化   … FileType autocmd で `vim.treesitter.start()`
 --   * インデントの有効化   … `indentexpr` を treesitter のものに差し替え (実験的)
+--
+-- 必要要件 (main ブランチ):
+--   * Neovim 0.11 以上
+--   * `tree-sitter` CLI と C コンパイラ … パーサのコンパイルに使用する。
+--     旧 master と違い tree-sitter CLI が無いと :TSUpdate / install() が失敗する。
 return {
   "nvim-treesitter/nvim-treesitter",
   branch = "main", -- 新 API を使うため main ブランチを明示
