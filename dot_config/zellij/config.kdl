@@ -10,7 +10,9 @@
 // ---- 個別の上書き設定 ----
 
 // Ghostty の tokyonight_night テーマと見た目を揃える
-theme "tokyo-night"
+// パレットはファイル末尾の `themes` ブロックで明示的に定義している
+// (組み込みの "tokyo-night" ではなく Ghostty と完全一致させるため)
+theme "tokyonight_night"
 
 // ペインはログインシェル (zsh) で起動する
 default_shell "zsh"
@@ -278,4 +280,139 @@ load_plugins {
 
 web_client {
     font "monospace"
+}
+
+// ---- Tokyo Night (night) テーマ定義 ----
+// Ghostty の dot_config/ghostty/themes/tokyonight_night と同じパレットを
+// zellij の UI コンポーネント形式で定義する。RGB 値は Ghostty 側の hex を
+// そのまま変換したもの。主要色の対応は以下のとおり:
+//   fg          #c0caf5 -> 192 202 245
+//   bg          #1a1b26 ->  26  27  38
+//   selection   #283457 ->  40  52  87
+//   red         #f7768e -> 247 118 142
+//   green       #9ece6a -> 158 206 106
+//   yellow      #e0af68 -> 224 175 104
+//   blue        #7aa2f7 -> 122 162 247
+//   magenta     #bb9af7 -> 187 154 247
+//   cyan        #7dcfff -> 125 207 255
+//   orange      #ff9e64 -> 255 158 100
+themes {
+    tokyonight_night {
+        text_unselected {
+            base 192 202 245
+            background 26 27 38
+            emphasis_0 247 118 142
+            emphasis_1 224 175 104
+            emphasis_2 158 206 106
+            emphasis_3 187 154 247
+        }
+        text_selected {
+            base 192 202 245
+            background 40 52 87
+            emphasis_0 247 118 142
+            emphasis_1 224 175 104
+            emphasis_2 158 206 106
+            emphasis_3 187 154 247
+        }
+        ribbon_selected {
+            base 26 27 38
+            background 158 206 106
+            emphasis_0 247 118 142
+            emphasis_1 255 158 100
+            emphasis_2 187 154 247
+            emphasis_3 125 207 255
+        }
+        ribbon_unselected {
+            base 26 27 38
+            background 192 202 245
+            emphasis_0 247 118 142
+            emphasis_1 255 255 255
+            emphasis_2 187 154 247
+            emphasis_3 125 207 255
+        }
+        table_title {
+            base 158 206 106
+            background 0
+            emphasis_0 247 118 142
+            emphasis_1 224 175 104
+            emphasis_2 187 154 247
+            emphasis_3 125 207 255
+        }
+        table_cell_selected {
+            base 192 202 245
+            background 40 52 87
+            emphasis_0 247 118 142
+            emphasis_1 224 175 104
+            emphasis_2 158 206 106
+            emphasis_3 187 154 247
+        }
+        table_cell_unselected {
+            base 192 202 245
+            background 26 27 38
+            emphasis_0 247 118 142
+            emphasis_1 224 175 104
+            emphasis_2 158 206 106
+            emphasis_3 187 154 247
+        }
+        list_selected {
+            base 192 202 245
+            background 40 52 87
+            emphasis_0 247 118 142
+            emphasis_1 224 175 104
+            emphasis_2 158 206 106
+            emphasis_3 187 154 247
+        }
+        list_unselected {
+            base 192 202 245
+            background 26 27 38
+            emphasis_0 247 118 142
+            emphasis_1 224 175 104
+            emphasis_2 158 206 106
+            emphasis_3 187 154 247
+        }
+        frame_selected {
+            base 158 206 106
+            background 0
+            emphasis_0 125 207 255
+            emphasis_1 224 175 104
+            emphasis_2 187 154 247
+            emphasis_3 0
+        }
+        frame_highlight {
+            base 255 158 100
+            background 0
+            emphasis_0 255 158 100
+            emphasis_1 255 158 100
+            emphasis_2 255 158 100
+            emphasis_3 255 158 100
+        }
+        exit_code_success {
+            base 158 206 106
+            background 0
+            emphasis_0 125 207 255
+            emphasis_1 26 27 38
+            emphasis_2 187 154 247
+            emphasis_3 40 52 87
+        }
+        exit_code_error {
+            base 247 118 142
+            background 0
+            emphasis_0 224 175 104
+            emphasis_1 0
+            emphasis_2 0
+            emphasis_3 0
+        }
+        multiplayer_user_colors {
+            player_1 187 154 247
+            player_2 125 207 255
+            player_3 0
+            player_4 224 175 104
+            player_5 13 185 215
+            player_6 0
+            player_7 247 118 142
+            player_8 0
+            player_9 0
+            player_10 0
+        }
+    }
 }
