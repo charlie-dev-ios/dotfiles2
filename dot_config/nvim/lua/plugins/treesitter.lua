@@ -11,6 +11,9 @@
 --   * Neovim 0.11 以上
 --   * `tree-sitter` CLI と C コンパイラ … パーサのコンパイルに使用する。
 --     旧 master と違い tree-sitter CLI が無いと :TSUpdate / install() が失敗する。
+--     CLI は Brewfile (brew "tree-sitter-cli") で導入する。Homebrew の "tree-sitter"
+--     はライブラリのみで CLI を含まない点に注意。C コンパイラは macOS の
+--     Command Line Tools (Homebrew 導入時に同梱) で入る。
 return {
   "nvim-treesitter/nvim-treesitter",
   branch = "main", -- 新 API を使うため main ブランチを明示
