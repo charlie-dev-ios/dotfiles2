@@ -32,10 +32,27 @@ return {
       vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
     end
 
+    -- ハイライトの対象外にするバッファタイプ。
+    -- snacks.nvim のファイラ/ピッカー/ダッシュボードなどプラグインが生成する
+    -- 特殊バッファは実ファイルではなく対応するパーサも存在しないため、
+    -- vim.treesitter.start() を呼ぶと「パーサが無い」エラーになる。
+    -- これらは buftype が "nofile"/"prompt"/"terminal" などになるので除外する。
+    -- (通常ファイルは "", ヘルプは "help" なのでこれまで通りハイライトされる)
+    local skip_buftypes = {
+      nofile = true,
+      prompt = true,
+      terminal = true,
+      quickfix = true,
+    }
+
     -- パーサが利用可能なファイルタイプでハイライトとインデントを有効化する
     vim.api.nvim_create_autocmd("FileType", {
       callback = function(args)
         local buf = args.buf
+        -- 実ファイル以外の特殊バッファ (snacks など) はそもそも対象にしない
+        if skip_buftypes[vim.bo[buf].buftype] then
+          return
+        end
         local ft = vim.bo[buf].filetype
         -- ファイルタイプに対応する treesitter の言語名を解決
         local lang = vim.treesitter.language.get_lang(ft)
