@@ -5,6 +5,13 @@
 --     (~/.config/mise/config.toml)。lspconfig は PATH 上のサーバを
 --     探すだけなので、mise で入れて PATH を通せばそのまま動く。
 --   * 補完候補は blink.cmp に渡す (capabilities を blink から取得)。
+--
+-- Neovim 0.11+ の組み込み LSP API に対応:
+--   旧来の `require("lspconfig").<server>.setup()` フレームワークは
+--   nvim-lspconfig v3.0.0 で削除予定の非推奨。代わりに組み込みの
+--   `vim.lsp.config()` で設定し `vim.lsp.enable()` で有効化する。
+--   nvim-lspconfig は各サーバの既定値 (cmd/filetypes/root_markers を
+--   定義した lsp/<server>.lua) を提供するためだけに残している。
 return {
   "neovim/nvim-lspconfig",
   event = { "BufReadPre", "BufNewFile" },
@@ -41,15 +48,19 @@ return {
       end,
     })
 
-    -- 補完能力 (capabilities) を blink.cmp から取得して各サーバへ渡す。
-    -- これにより LSP の補完候補が blink.cmp に流れる。
-    local capabilities = require("blink.cmp").get_lsp_capabilities()
-    local lspconfig = require("lspconfig")
+    -- 補完能力 (capabilities) を blink.cmp から取得し、全サーバの既定値
+    -- ("*") に設定する。これにより LSP の補完候補が blink.cmp に流れる。
+    -- ("*" は vim.lsp.config の全サーバ共通設定。0.11+ では本来 blink が
+    --  自動で行うが、blink の遅延読込順に依存しないよう明示しておく)
+    vim.lsp.config("*", {
+      capabilities = require("blink.cmp").get_lsp_capabilities(),
+    })
 
     -- ---- lua_ls (Lua の LSP。この nvim 設定自体を書くのに有用) ----
     -- サーバ本体は mise の aqua:LuaLS/lua-language-server で導入する。
-    lspconfig.lua_ls.setup({
-      capabilities = capabilities,
+    -- cmd/filetypes/root_markers は nvim-lspconfig の lsp/lua_ls.lua が
+    -- 提供するので、ここでは固有の settings だけを上書きする。
+    vim.lsp.config("lua_ls", {
       settings = {
         Lua = {
           -- `vim` をグローバルとして認識させ "undefined global" を消す
@@ -64,5 +75,8 @@ return {
         },
       },
     })
+
+    -- 設定したサーバを有効化 (対応する filetype で自動起動するようになる)
+    vim.lsp.enable("lua_ls")
   end,
 }
