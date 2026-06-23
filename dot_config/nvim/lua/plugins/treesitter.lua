@@ -62,8 +62,13 @@ return {
         if not lang then
           return
         end
-        -- パーサが入っていれば (= 追加できれば) すぐにハイライトを開始
-        if pcall(vim.treesitter.language.add, lang) then
+        -- パーサが入っていれば (= ロードできれば) すぐにハイライトを開始。
+        -- vim.treesitter.language.add は未インストール時に例外ではなく
+        -- (nil, errmsg) を返すため、pcall の成否だけ見ると未インストールでも
+        -- 「成功」と誤判定してしまう。pcall の第2戻り値 (= add の戻り値) を見て、
+        -- 実際にロードできたときだけ attach する。
+        local ok, loaded = pcall(vim.treesitter.language.add, lang)
+        if ok and loaded then
           attach(buf, lang)
           return
         end
@@ -80,7 +85,9 @@ return {
           -- インストール完了は別スレッド/コルーチンのため UI 操作は schedule する。
           -- 完了までにバッファが閉じている可能性があるので有効性も確認する。
           vim.schedule(function()
-            if vim.api.nvim_buf_is_valid(buf) and pcall(vim.treesitter.language.add, lang) then
+            -- ここも同様に add の戻り値 (loaded) まで確認する。
+            local ok, loaded = pcall(vim.treesitter.language.add, lang)
+            if vim.api.nvim_buf_is_valid(buf) and ok and loaded then
               attach(buf, lang)
             end
           end)
