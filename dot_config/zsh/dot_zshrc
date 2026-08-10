@@ -102,6 +102,9 @@ fi
 # .zshrc.local は chezmoi の create_ 属性で「無ければ作成・あれば中身を変更しない」
 # 管理のため、端末ごとに独立し、中身はリポジトリに同期されない。
 [[ -f "${ZDOTDIR}/.zshrc.local" ]] && source "${ZDOTDIR}/.zshrc.local"
+# .zshrc.work は業務用設定を分離して置くためのファイル (存在すれば読み込む)。
+# .zshrc.local と同様にリポジトリ管理外なので、会社固有の設定はこちらへ書く。
+[[ -f "${ZDOTDIR}/.zshrc.work" ]] && source "${ZDOTDIR}/.zshrc.work"
 
 # ---- GitHub レートリミット対策 ----
 # mise (aqua バックエンド) と Homebrew は GitHub の API/Releases を叩くため、
