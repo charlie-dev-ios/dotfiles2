@@ -25,3 +25,23 @@ autocmd("BufReadPost", {
     end
   end,
 })
+
+-- ファイルタイプごとのインデント幅 (dotfiles の設定に合わせる)
+-- 既定は 4 スペースで、言語ごとの慣習に合わせて上書きする
+local indent_by_filetype = {
+  lua = 2,
+  swift = 4,
+}
+
+autocmd("FileType", {
+  group = augroup("filetype_indent", { clear = true }),
+  pattern = vim.tbl_keys(indent_by_filetype),
+  callback = function(args)
+    local width = indent_by_filetype[vim.bo[args.buf].filetype]
+    if width then
+      vim.opt_local.tabstop = width
+      vim.opt_local.softtabstop = width
+      vim.opt_local.shiftwidth = width
+    end
+  end,
+})
