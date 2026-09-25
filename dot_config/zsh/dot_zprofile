@@ -9,3 +9,25 @@ export PATH="$HOME/.local/bin:$PATH"
 # 既定のエディタ (mise で導入した neovim)
 export EDITOR="nvim"
 export VISUAL="nvim"
+
+# ---- Android SDK ----
+# Android Studio が既定で SDK を置く場所。adb / emulator / sdkmanager 等を PATH に通す。
+# 既に ANDROID_HOME が定義されていればそちらを優先する。
+export ANDROID_HOME="${ANDROID_HOME:-$HOME/Library/Android/sdk}"
+export ANDROID_SDK_ROOT="$ANDROID_HOME" # 古いツール (Gradle プラグイン等) 向けの互換用
+
+# path 配列の重複を除外し、存在するディレクトリだけを追加する ((N) は該当なしなら空)
+typeset -U path
+path=(
+  $ANDROID_HOME/platform-tools(N/)           # adb, fastboot
+  $ANDROID_HOME/emulator(N/)                 # emulator
+  $ANDROID_HOME/cmdline-tools/latest/bin(N/) # sdkmanager, avdmanager
+  $path
+)
+
+# JDK: 未設定なら Android Studio 同梱の JBR を使う (Gradle ビルド用)
+_android_studio_jbr="/Applications/Android Studio.app/Contents/jbr/Contents/Home"
+if [[ -z "${JAVA_HOME:-}" && -d "$_android_studio_jbr" ]]; then
+  export JAVA_HOME="$_android_studio_jbr"
+fi
+unset _android_studio_jbr
