@@ -25,9 +25,11 @@
 # (aquaproj/aqua-registry の LuaLS/lua-language-server)。
 "aqua:LuaLS/lua-language-server" = "latest"
 
-# Java (JDK)。Kotlin コンパイラと kotlin-language-server の実行に必要。
-# mise 組込みの core:java で Eclipse Temurin の LTS (21 系) を導入する。
-"java" = "temurin-21"
+# Java (JDK) は mise では管理しない。
+# mise で入れると JAVA_HOME / PATH 上の java が mise のものになり、
+# Android Studio (Gradle JDK) と CLI の ./gradlew で JDK が食い違うため。
+# 代わりに Android Studio 同梱の JBR を JAVA_HOME に設定して共通利用する
+# (~/.config/zsh/.zprofile)。下記の kotlinc / kotlin-language-server もこれで動く。
 
 # Kotlin コンパイラ (kotlinc / kotlin)。
 # 社内プロキシ環境で取得できるよう、vfox/asdf ではなく github バックエンドを

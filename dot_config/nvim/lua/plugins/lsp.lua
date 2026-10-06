@@ -78,7 +78,7 @@ return {
 
     -- ---- kotlin_language_server (Kotlin の LSP) ----
     -- サーバ本体は mise の github:fwcd/kotlin-language-server で導入する
-    -- (実行には mise で入れた Java が必要)。cmd/filetypes/root_markers は
+    -- (実行には JAVA_HOME の JDK = Android Studio 同梱の JBR を使う)。cmd/filetypes/root_markers は
     -- nvim-lspconfig の lsp/kotlin_language_server.lua の既定値をそのまま使う。
 
     -- 設定したサーバを有効化 (対応する filetype で自動起動するようになる)
