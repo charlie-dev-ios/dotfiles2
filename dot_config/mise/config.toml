@@ -24,3 +24,19 @@
 # 社内プロキシ環境で取得できるよう aqua バックエンドを明示指定する
 # (aquaproj/aqua-registry の LuaLS/lua-language-server)。
 "aqua:LuaLS/lua-language-server" = "latest"
+
+# Java (JDK)。Kotlin コンパイラと kotlin-language-server の実行に必要。
+# mise 組込みの core:java で Eclipse Temurin の LTS (21 系) を導入する。
+"java" = "temurin-21"
+
+# Kotlin コンパイラ (kotlinc / kotlin)。
+# 社内プロキシ環境で取得できるよう、vfox/asdf ではなく github バックエンドを
+# 明示指定し、JetBrains/kotlin の GitHub Releases から直接取得する
+# (mise レジストリの kotlin と同じアセット・パス指定)。
+"github:JetBrains/kotlin" = { version = "latest", asset_pattern = "kotlin-compiler-*.zip", bin_path = "kotlinc/bin" }
+
+# Kotlin の LSP サーバ (kotlin_language_server)。
+# aqua レジストリ・mise レジストリともに未登録のため github バックエンドで
+# fwcd/kotlin-language-server の Releases (server.zip) から取得する。
+# zip 内の server/bin/kotlin-language-server を PATH に通す。
+"github:fwcd/kotlin-language-server" = { version = "latest", asset_pattern = "server.zip", bin_path = "server/bin" }
