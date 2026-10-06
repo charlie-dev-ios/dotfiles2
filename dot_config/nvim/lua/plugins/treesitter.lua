@@ -28,6 +28,15 @@ return {
     }
     require("nvim-treesitter").install(ensure_installed)
 
+    -- パーサを読み込めるか判定する。
+    -- Neovim 0.11 以降の vim.treesitter.language.add() はパーサが無い場合に
+    -- エラーを投げず `nil, エラー文言` を返すため、pcall の第1戻り値 (true) だけでは
+    -- 失敗を検知できない。例外と戻り値の両方を確認する。
+    local function can_load(lang)
+      local ok, added, err = pcall(vim.treesitter.language.add, lang)
+      return ok and added ~= nil and err == nil
+    end
+
     -- バッファに対してハイライトとインデントを有効化する
     local function attach(buf, lang)
       vim.treesitter.start(buf, lang)
@@ -63,7 +72,7 @@ return {
           return
         end
         -- パーサが入っていれば (= 追加できれば) すぐにハイライトを開始
-        if pcall(vim.treesitter.language.add, lang) then
+        if can_load(lang) then
           attach(buf, lang)
           return
         end
@@ -80,7 +89,7 @@ return {
           -- インストール完了は別スレッド/コルーチンのため UI 操作は schedule する。
           -- 完了までにバッファが閉じている可能性があるので有効性も確認する。
           vim.schedule(function()
-            if vim.api.nvim_buf_is_valid(buf) and pcall(vim.treesitter.language.add, lang) then
+            if vim.api.nvim_buf_is_valid(buf) and can_load(lang) then
               attach(buf, lang)
             end
           end)
