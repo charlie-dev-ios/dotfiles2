@@ -80,6 +80,18 @@ return {
     -- サーバ本体は mise の github:fwcd/kotlin-language-server で導入する
     -- (実行には JAVA_HOME の JDK = Android Studio 同梱の JBR を使う)。cmd/filetypes/root_markers は
     -- nvim-lspconfig の lsp/kotlin_language_server.lua の既定値をそのまま使う。
+    --
+    -- init_options.storagePath だけは上書きする (nvim-lspconfig issue #3239 の回避)。
+    -- 既定値は lsp/kotlin_language_server.lua の読込時点のカレントバッファから
+    -- プロジェクトルートを求めるため、Kotlin 以外の場所で起動して :cd した後などに
+    -- nil になり、空テーブルが JSON 配列 `[]` として送られてサーバ初期化が
+    -- "Expected BEGIN_OBJECT but was BEGIN_ARRAY" で落ちる。
+    -- cwd に依存しない絶対パス (Neovim のキャッシュディレクトリ) に固定する。
+    vim.lsp.config("kotlin_language_server", {
+      init_options = {
+        storagePath = vim.fn.resolve(vim.fn.stdpath("cache") .. "/kotlin_language_server"),
+      },
+    })
 
     -- 設定したサーバを有効化 (対応する filetype で自動起動するようになる)
     vim.lsp.enable({ "lua_ls", "kotlin_language_server" })
