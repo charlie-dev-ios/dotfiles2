@@ -24,3 +24,21 @@
 # 社内プロキシ環境で取得できるよう aqua バックエンドを明示指定する
 # (aquaproj/aqua-registry の LuaLS/lua-language-server)。
 "aqua:LuaLS/lua-language-server" = "latest"
+
+# Java (JDK) は mise では管理しない。
+# mise で入れると JAVA_HOME / PATH 上の java が mise のものになり、
+# Android Studio (Gradle JDK) と CLI の ./gradlew で JDK が食い違うため。
+# 代わりに Android Studio 同梱の JBR を JAVA_HOME に設定して共通利用する
+# (~/.config/zsh/.zprofile)。下記の kotlinc / kotlin-language-server もこれで動く。
+
+# Kotlin コンパイラ (kotlinc / kotlin)。
+# 社内プロキシ環境で取得できるよう、vfox/asdf ではなく github バックエンドを
+# 明示指定し、JetBrains/kotlin の GitHub Releases から直接取得する
+# (mise レジストリの kotlin と同じアセット・パス指定)。
+"github:JetBrains/kotlin" = { version = "latest", asset_pattern = "kotlin-compiler-*.zip", bin_path = "kotlinc/bin" }
+
+# Kotlin の LSP サーバ (kotlin_language_server)。
+# aqua レジストリ・mise レジストリともに未登録のため github バックエンドで
+# fwcd/kotlin-language-server の Releases (server.zip) から取得する。
+# zip 内の server/bin/kotlin-language-server を PATH に通す。
+"github:fwcd/kotlin-language-server" = { version = "latest", asset_pattern = "server.zip", bin_path = "server/bin" }

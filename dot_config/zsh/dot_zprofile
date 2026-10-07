@@ -14,6 +14,18 @@ export VISUAL="nvim"
 # Android Studio が既定で SDK を置く場所。adb / emulator / sdkmanager 等を PATH に通す。
 export ANDROID_HOME="${ANDROID_HOME:-$HOME/Library/Android/sdk}"
 
+# ---- Java (JDK) ----
+# Android Studio 同梱の JDK (JBR) を JAVA_HOME にする。
+# Android Studio の Gradle JDK (既定は同梱 JBR) と CLI の ./gradlew / kotlinc /
+# kotlin-language-server (nvim) で同じ JDK を使い、ビルド結果の食い違いを防ぐ。
+# 既に JAVA_HOME が設定されていればそちらを優先する。
+_android_studio_jbr="/Applications/Android Studio.app/Contents/jbr/Contents/Home"
+if [[ -z "$JAVA_HOME" && -d "$_android_studio_jbr" ]]; then
+  export JAVA_HOME="$_android_studio_jbr"
+  export PATH="$JAVA_HOME/bin:$PATH" # java / javac を PATH に通す
+fi
+unset _android_studio_jbr
+
 # path 配列の重複を除外し、存在するディレクトリだけを追加する ((N) は該当なしなら空)
 typeset -U path
 path=(
